@@ -18,6 +18,12 @@ public class Manager extends Person {
         return true;
     }
 
+    public void checkInventory(ArrayList inventory) {
+        for (Ingredient i: inventory){
+            System.out.println(ingredient.name + ": " + String(ingredient.quantity));
+        }
+    }
+
     public void sendEmail(Ingredient in){
         in.setQuantity(in.getQuantity() + 20);//new
     }

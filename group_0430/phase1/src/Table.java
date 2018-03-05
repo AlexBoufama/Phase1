@@ -2,10 +2,10 @@ public class Table {
     private int num;
     private int bill;
 
-    public Table(int TableNumber, int Bill){
+    public Table(int TableNumber){
 
         this.num = TableNumber;
-        this.bill = Bill;
+        this.bill = 0;
     }
 
     public int getBill() {
