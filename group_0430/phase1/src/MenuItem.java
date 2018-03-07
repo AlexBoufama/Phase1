@@ -31,5 +31,10 @@ public class MenuItem {
     public void extraIngredient(Ingredient ingredient, int amount){
         ingredient.useIngredient(amount);
     }
+
+    public String toString() {
+        return name;
+    }
+
 }
 

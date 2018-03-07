@@ -1,131 +1,181 @@
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.*;
 import java.text.BreakIterator;
 import java.util.*;
 
 public class Restaurant {
 
-    public ArrayList<Ingredient> inventory;
-    public ArrayList<MenuItem> menu;
-    public ArrayList<Table> tables;
-    public ArrayList<Server> servers;
-    public ArrayList<Cook> cooks;
-    public ArrayList<Manager> managers;
+//    public void checkStorage() {
+//        for (Ingredient i : inventory) {
+//            if (i.OutOfStorage()) {
+//                //write request;
+//            }
+//        }
+//    }
 
-
-    public void checkStorage() {
-        for (Ingredient i : inventory) {
-            if (i.OutOfStorage()) {
-                //write request;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /**
          * This is the menu creation/initialization
          */
+        ArrayList<Ingredient> inventory = new ArrayList<Ingredient>();
+        ArrayList<MenuItem> menu = new ArrayList<MenuItem>();
+        ArrayList<Table> tables = new ArrayList<Table>();
+        ArrayList<Server> servers = new ArrayList<Server>();
+        ArrayList<Cook> cooks = new ArrayList<Cook>();
+        ArrayList<Manager> managers = new ArrayList<Manager>();
+        ArrayList<Order> orders = new ArrayList<Order>();
 
-        Ingredient rice = new Ingredient("rice",20,10);
-        inventory.add(rice);
-        Ingredient seaweed = new Ingredient("seaweed",20, 10);
-        inventory.add(seaweed);
-        Ingredient crabMeat = new Ingredient("crabMeat",20, 10);
-        inventory.add(crabMeat);
-        Ingredient mayo = new Ingredient("mayo",20,10);
-        inventory.add(mayo);
-        Ingredient avocado = new Ingredient("avocado",20,10);
-        inventory.add(avocado);
-        Ingredient cucumber = new Ingredient("cucumber",20,10);
-        inventory.add(cucumber);
-        Ingredient tempura = new Ingredient("tempura",20,10);
-        inventory.add(tempura);
-        Ingredient salmon = new Ingredient("salmon",20,10);
-        inventory.add(salmon);
-        Ingredient wasabi = new Ingredient("wasabi",20,10);
-        inventory.add(wasabi);
-        Ingredient tuna = new Ingredient("tuna",20,10);
-        inventory.add(tuna);
-        Ingredient soySauce = new Ingredient("soySauce",20,10);
-        inventory.add(soySauce);
-        Ingredient sake = new Ingredient("sake",20,10);
-        inventory.add(sake);
-
-
-        MenuItem californiaRoll = new MenuItem("californiaRoll", 12);
-        californiaRoll.addIngredients(rice);
-        californiaRoll.addIngredients(seaweed);
-        californiaRoll.addIngredients(crabMeat);
-        californiaRoll.addIngredients(mayo);
-        californiaRoll.addIngredients(avocado);
-        californiaRoll.addIngredients(cucumber);
-        menu.add(californiaRoll);
-
-        MenuItem dynamiteRoll = new MenuItem("dynamiteRoll", 15);
-        dynamiteRoll.addIngredients(rice);
-        dynamiteRoll.addIngredients(seaweed);
-        dynamiteRoll.addIngredients(tempura);
-        dynamiteRoll.addIngredients(mayo);
-        dynamiteRoll.addIngredients(cucumber);
-        dynamiteRoll.addIngredients(salmon);
-        menu.add(dynamiteRoll);
-
-        MenuItem nigiri = new MenuItem("nigiri", 10);
-        nigiri.addIngredients(salmon);
-        nigiri.addIngredients(wasabi);
-        nigiri.addIngredients(rice);
-        menu.add(nigiri);
-
-        MenuItem sashimi = new MenuItem("sashimi", 20);
-        sashimi.addIngredients(salmon);
-        sashimi.addIngredients(tuna);
-        sashimi.addIngredients(wasabi);
-        sashimi.addIngredients(soySauce);
-        menu.add(sashimi);
-
-        MenuItem hotSake = new MenuItem("hotSake", 15);
-        sake.addIngredients(sake);
-        menu.add(hotSake);
-
-        Table table1 = new Table(1);
-        tables.add(table1);
-        Table table2 = new Table(2);
-        tables.add(table2);
-        Table table3 = new Table(3);
-        tables.add(table3);
-        Table table4 = new Table(4);
-        tables.add(table4);
-        Table table5 = new Table(5);
-        tables.add(table5);
-        Table table6 = new Table(6);
-        tables.add(table6);
-        Table table7 = new Table(7);
-        tables.add(table7);
-        Table table8 = new Table(8);
-        tables.add(table8);
-        Table table9 = new Table(9);
-        tables.add(table9);
-        Table table10 = new Table(10);
-        tables.add(table10);
-
+        Server server0 = new Server(0);
+        servers.add(server0);
         Server server1 = new Server(1);
         servers.add(server1);
         Server server2 = new Server(2);
         servers.add(server2);
-        Server server3 = new Server(3);
-        servers.add(server3);
 
+        Cook cook0 = new Cook(0);
+        cooks.add(cook0);
         Cook cook1 = new Cook(1);
         cooks.add(cook1);
         Cook cook2 = new Cook(2);
         cooks.add(cook2);
-        Cook cook3 = new Cook(3);
-        cooks.add(cook3);
 
+        Manager manager0 = new Manager(0);
+        managers.add(manager0);
         Manager manager1 = new Manager(1);
         managers.add(manager1);
-        Manager manager2 = new Manager(2);
-        managers.add(manager2);
 
-        File file = new File("Events.txt");
+        String InventoryFile = "Inventory.txt";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(InventoryFile))) {
+            String line = fileReader.readLine();
+            while (line != null) {
+                String[] subStrings = line.split(" \\| ");
+                inventory.add(new Ingredient(subStrings[1], Integer.valueOf(subStrings[2]),
+                        Integer.valueOf(subStrings[3])));
+                line = fileReader.readLine();
+            }
+        }
+
+        String MenuFile = "Menu.txt";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(MenuFile))) {
+            String line = fileReader.readLine();
+            while (line != null) {
+                String[] subStrings = line.split(" \\| ");
+                MenuItem item = new MenuItem(subStrings[1], Integer.valueOf(subStrings[2]));
+                menu.add(item);
+
+                for(int i = 3; i < subStrings.length; i++){
+                    item.addIngredients(inventory.get(Integer.valueOf(subStrings[i])));
+                }
+
+                line = fileReader.readLine();
+            }
+        }
+
+        String TablesFile = "Tables.txt";
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(TablesFile))) {
+            String line = fileReader.readLine();
+            while (line != null) {
+                tables.add(new Table(Integer.valueOf(line)));
+                line = fileReader.readLine();
+            }
+        }
+
+        try (BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in))) {
+            String fileName = "EventsTest.txt";
+            String userInput;
+            do {
+                try (BufferedReader fileReader = new BufferedReader(new FileReader(fileName))) {
+                    System.out.print("Press Enter to Start: ");
+                    userInput = keyboard.readLine();
+
+                    if (userInput.equals("exit")) {
+                        System.out.println("Exiting...");
+                        break;
+                    }
+
+                    String line = fileReader.readLine();
+                    String[] subStrings = line.split(" \\| ");
+                    System.out.println("Hello");
+                    System.out.println(subStrings[1]);
+                    System.out.println(subStrings[2]);
+                    System.out.println(subStrings[3]);
+                    System.out.println(subStrings[4]);
+                    System.out.println(subStrings[5]);
+                    System.out.println(subStrings[6]);
+                    System.out.println(subStrings[7]);
+                    if(subStrings[7].contains("+")){
+                        String[] modifications = subStrings[7].split(" \\+ ");
+                        System.out.println(modifications[0]);
+                        System.out.println(modifications[1]);
+                    }
+                    orders.add(new Order(tables.get(Integer.parseInt(subStrings[2].substring(subStrings[2].length() - 1))),
+                            Integer.parseInt(subStrings[0].substring(subStrings[0].length() - 1))));
+                    System.out.println(orders.get(0));
+                    orders.get(0).addItem(menu.get(0));
+                    orders.get(0).addItem(menu.get(0));
+                    orders.get(0).addItem(menu.get(1));
+                    System.out.println(orders.get(0));
+                    System.out.println(menu.get(4).getIngredients());
+
+
+
+
+                    while (line != null) {
+                        /**String[] subStrings = line.split(" \\| ");
+                        if(subStrings[2].equals("order seen")){
+
+                        }
+                        else if(subStrings[2].equals("order filled")){
+
+                        }
+                        else if(subStrings[2].equals("order delivered")){
+
+                        }
+                        else if(subStrings[2].equals("addBill")){
+
+                        }
+                        else if(subStrings[2].equals("return")){
+
+                        }
+                        else{
+                            orders.add(new Order(tables.get(Integer.parseInt(subStrings[2].substring(subStrings[2].length() - 1))),
+                                    Integer.parseInt(subStrings[0].substring(subStrings[0].length() - 1))));
+                        }
+
+                        for(int i = 0; i < subStrings.length; i++) {
+
+                            if(i == 3) {
+
+                            }
+                        }
+
+
+                        if (subStrings[1].equals(" s1 ")) {
+                            Server server = servers.get(Integer.valueOf(subStrings[1].substring(1, 3)));
+                            if (subStrings[2].equals(" 1 ")) {
+                                ArrayList<MenuItem> orderItems = new ArrayList<MenuItem>();
+                                String[] OI = subStrings[4].split(",");
+                                for (String item : OI) {
+                                    for (MenuItem menuItem : menu) {
+                                        if (menuItem.toString().equals(item.substring(1))) {
+                                            orderItems.add(menuItem);
+                                        }
+                                    }
+                                }
+                                //server.createOrder(orderItems, tables.get(Integer.valueOf(subStrings[3].substring(1))));
+                                System.out.println(server.createOrder(orderItems, tables.get(Integer.valueOf(subStrings[3].substring(1)))));
+                            }*/
+                        }
+
+                    }
+                }while(!userInput.equals("exit"));
+            }//while(!userInput.equals("exit"));
+        }
     }
-}

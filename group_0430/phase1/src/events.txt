@@ -1,14 +1,17 @@
-1 - order : |4 California Roll |5 Dynamite Roll |2 Sake - 1 hot |
-1 - server1 : takes order to cook
-1 - cook1 : cooks order
-1 - server1 : brings order to table
-2 - order : |4 Dynamite roll |5 Nigiri + 1 Salmon|
-2 - server2 : takes order to cook
-2 - cook1 : cooks order
-2 - server2 : brings order to table
-1 - order : return |1 California Roll | because of hair
-1 - server1: return |1 California Roll | to kitchen
-1 - cook1 : return |1 California Roll | to inventory 
+order1 | server1 | order table1 | California Roll, California Roll, Dynamite Roll, Sake
+order1 | cook1 | confirm | order seen
+order1 | cook1 | confirm | order filled
+order1 | server1 | order delivered
+order2 | server2 | table 2 | Dynamite roll, Nigiri, Nigiri + Salmon
+order2 | cook1 | order seen
+order2 | cook1 | order filled
+order2 | server2 | order delivered
+order1 | server1 | return | California Roll | because of hair
+order1 | server1 | addBill | California Roll, Dynamite Roll, Sake
+order1 | cook1 | return | California Roll
+0 - manager1 : check for inventory
+0 - inventory : needs stock
+0 - manager1 : orders new ingredients
 3 - order : |4 sake |
 3 - server3 : takes order to cook
 3 - cook1 : cooks order
@@ -16,12 +19,15 @@
 1 - order : bill
 1 - server1 : brings bill
 1 - order : completed
-2 - order : |5 Sashimi |- 1 Wasabi|
+2 - order : | 5 Sashimi |- 1 Wasabi |
 2 - server2 : takes order to cook
 2 - cook2 : cooks order
 2 - server2 : brings order to table
 2 - order : bill
 2 - server2 : brings bill
+0 - manager2 : check for inventory
+0 - inventory : needs stock
+0 - manager2 : orders new ingredients
 4 - order : |5 California Roll + 2 crab meat + 2 rice |4 Nigiri |3 Sashimi - 1 Soy Sauce|
 4 - server1 : takes order to cook
 4 - cook1 : cooks order
@@ -33,6 +39,7 @@
 5 - server2 : brings order to table
 6 - order : |10 California Roll|
 6 - server3 : takes order to cook
+0 - receiver1 : receives new ingredients
 6 - cook3 : cooks order
 6 - server3 : brings order to table
 7 - order : |2 Dynamite Roll - 1 Mayo |2 Nigiri |
@@ -42,6 +49,9 @@
 3 - order : bill
 3 - server3 : brings bill
 3 - order : completed
+0 - manager1 : check for inventory
+0 - inventory : need stock
+0 - manager1 : orders new ingredients
 4 - order : return |1 Nigiri | because of bad fish
 4 - order : return |1 California Roll | because of hair
 4 - server1: return |1 California Roll | to kitchen
@@ -52,6 +62,7 @@
 6 - order : bill
 6 - server3 : brings bill
 6 - order : completed
+0 - receiver2 : receives new ingredients
 4 - order : bill
 4 - server1 : brings bill
 4 - order : completed 
@@ -62,3 +73,16 @@
 7 - order : bill
 7 - server1 : brings bill
 7 - order : completed
+0 - manager2 : check for inventory
+0 - inventory : good
+
+order1 | c1 | order seen
+order1 | c1 | order filled
+order1 | s1 | order delivered
+order2 | s2 | table 2 | Dynamite roll, Nigiri, Nigiri + 1 Salmon
+order2 | c1 | order seen
+order2 | c1 | order filled
+order2 | s2 | order delivered
+order1 | s1 | return | California Roll | because of hair
+order1 | s1 | addBill | California Roll, Dynamite Roll, Sake
+order1 | c1 | return | California Roll

@@ -8,6 +8,7 @@ public class Table {
         this.bill = 0;
     }
 
+
     public int getBill() {
         return bill;
     }
@@ -22,5 +23,10 @@ public class Table {
 
     public void setBill(int bill) {
         this.bill = bill;
+    }
+
+    @Override
+    public String toString() {
+        return "Table " + num;
     }
 }

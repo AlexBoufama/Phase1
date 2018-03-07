@@ -6,10 +6,12 @@ public class Order {
     private boolean Confirmed = false;
     private boolean Filled = false;
     private boolean Delivered = false;
+    private int orderNumber;
 
-    public Order(ArrayList<MenuItem> food, Table table) {
-        this.items = food;
+    public Order(Table table, int orderNumber) {
         this.table = table;
+        this.orderNumber = orderNumber;
+        this.items = new ArrayList<MenuItem>();
     }
 
     public void addItem(MenuItem food){
@@ -46,6 +48,16 @@ public class Order {
 
     public boolean isFilled() {
         return Filled;
+    }
+
+    public String toString(){
+        String s = "Order " + orderNumber + ": ";
+
+        for (MenuItem menuItem : items) {
+            s = s + menuItem.toString() + " | ";
+        }
+
+        return s;
     }
 
 }

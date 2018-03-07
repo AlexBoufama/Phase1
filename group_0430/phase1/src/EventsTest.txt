@@ -1,0 +1,11 @@
+order 1 | server 1 | table 1 | 0 California Roll | 0 California Roll | 1 Dynamite Roll | 4 Sake | 2 Nigiri + 1 Salmon
+order 1 | c 1 | order seen
+order 1 | c 1 | order filled
+order 1 | s 1 | order delivered
+order 2 | s 2 | table 2 | Dynamite roll | Nigiri | Nigiri + 1 Salmon
+order 2 | c 1 | order seen
+order 2 | c 1 | order filled
+order 2 | s 2 | order delivered
+order 1 | s 1 | return | California Roll | because of hair
+order 1 | s 1 | addBill | California Roll, Dynamite Roll, Sake
+order 1 | c 1 | return | California Roll

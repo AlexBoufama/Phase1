@@ -1,0 +1,12 @@
+0 | rice | 30 | 10
+1 | seaweed | 30 | 10
+2 | crab | 30 | 10
+3 | mayo | 30 | 10
+4 | avocado | 30 | 10
+5 | cucumber | 30 | 10
+6 | tempura | 30 | 10
+7 | salmon | 30 | 10
+8 | wasabi | 30 | 10
+9 | tuna | 30 | 10
+10 | soy sauce | 30 | 10
+11 | sake | 30 | 10

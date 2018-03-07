@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Manager extends Person {
     private int managerId;
 
@@ -18,9 +20,9 @@ public class Manager extends Person {
         return true;
     }
 
-    public void checkInventory(ArrayList inventory) {
+    public void checkInventory(ArrayList<Ingredient> inventory) {
         for (Ingredient i: inventory){
-            System.out.println(ingredient.name + ": " + String(ingredient.quantity));
+            System.out.println(i.getName() + ": " + Integer.toString(i.getQuantity()));
         }
     }
 
@@ -30,5 +32,9 @@ public class Manager extends Person {
 
     public void sendEmail(Ingredient in, int amount){
         in.setQuantity(in.getQuantity() + amount);//new
+    }
+
+    public String toString(){
+        return "Manager " + managerId;
     }
 }

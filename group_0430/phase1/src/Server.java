@@ -11,8 +11,8 @@ public class Server extends Person {
         System.out.println(t.getBill());
     }
 
-    public Order createOrder(ArrayList<MenuItem> items, Table table) {
-        return new Order(items, table);
+    public Order createOrder(ArrayList<MenuItem> items, Table table, int orderNum) {
+        return new Order(table, orderNum);
     }
 
     public boolean checkStatus (Order order){
@@ -31,7 +31,7 @@ public class Server extends Person {
 
 
     public String toString(){
-        return "Server" + serverId;
+        return "Server " + serverId;
     }
 
 

@@ -28,4 +28,8 @@ public class Cook extends Person {
         order.Fill();
     }
 
+    @Override
+    public String toString() {
+        return "Cook "+ cookId;
+    }
 }
